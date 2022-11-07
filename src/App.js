@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
-import Main from './components/Main'
+import React, { Component } from "react";
+import { LanguageProvider } from "./components/LanguageContext";
+import Main from "./components/Main";
 
 class App extends Component {
   render() {
+    const language = { currentLanguage: "english" };
     return (
-      <Main />
+      <LanguageProvider value={language}>
+        <Main />
+      </LanguageProvider>
     );
   }
 }

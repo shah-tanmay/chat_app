@@ -5,6 +5,8 @@ import Sidebar from './Sidebar';
 import MessageHeader from './MessageHeader'
 import MessagesBody from './MessagesBody'
 import MessageInput from './MessageInput'
+import axios from 'axios';
+import LanguageContext from '../LanguageContext';
 
 
 export class ChatPage extends Component {
@@ -60,13 +62,44 @@ export class ChatPage extends Component {
     })
     this.setState({ pChats })
   }
-
+  subscriptionKey = '1907fee8aa484fe28d3e8b743436c252';
+  region = 'centralindia';
+  languageToCodeMap = {
+    English: "en",
+    Tamil: "ta",
+    Telgu: "te",
+    Hindi: "hi",
+  };
+  translateLang = async (message) => {
+    try {
+     
+     const res = await axios.post(`https://api.cognitive.microsofttranslator.com/translate?api-version=3.0&to=${this.languageToCodeMap[this.context.language]}`,[{"text":message.message}],{
+      headers:{
+        'Ocp-Apim-Subscription-Key': this.subscriptionKey,
+        'Ocp-Apim-Subscription-Region': this.region,
+        // 'Content-type': 'application/json',
+        // 'X-ClientTraceId': uuidv4().toString()
+      }
+     })
+     console.log(res.data[0].translations[0].text);
+     return {
+      ...message,
+      message : res.data[0].translations[0].text
+    };
+    } catch (error) {
+      console.log(error);
+      return {
+        ...message,
+        message : "We were unable to translate this message"
+      }
+    }
+  }
+  static contextType = LanguageContext;
   addMessage = ({ channel, message }) => {
     let { activeChannel, chats } = this.state
-
-    chats.map( chat => {
+    chats.map( async(chat) => {
       if( chat.name === channel ) {
-        chat.messages.push( message )
+        chat.messages.push(message)
         if ( activeChannel.name !== channel ) chat.msgCount ++
       }
       return null

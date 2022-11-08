@@ -131,6 +131,11 @@ export class Sidebar extends Component {
       { key: 2, text: "Tamil", value: "Tamil" },
       { key: 3, text: "Telgu", value: "Telgu" },
       { key: 4, text: "Hindi", value: "Hindi" },
+      { key: 5, text: "Arabic", value: "Arabic" },
+      { key: 6, text: "Spanish", value: "Spanish" },
+      { key: 7, text:"French", value: "French" },
+      { key: 7, text:"Gujarati", value: "Gujarati" },
+      { key: 8, text:"Italian", value: "Italian" },
     ];
     return (
       <React.Fragment>

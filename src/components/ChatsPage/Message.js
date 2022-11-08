@@ -11,6 +11,11 @@ const Message = ({message,user}) => {
         Tamil: "ta",
         Telgu: "te",
         Hindi: "hi",
+        Arabic: "ar",
+        "Spanish": "es",
+        "French":"fr",
+        "Gujarati":"gu",
+        "Italian":"it"
       };
       var key_var = '1907fee8aa484fe28d3e8b743436c252';
       var subscriptionKey = key_var;
